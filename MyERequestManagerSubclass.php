@@ -2,21 +2,55 @@
 /**
  * MyERequestManagerSubclass
  *
- *	sample subclass, do not use from this location, copy it into 
- *	your 'protected/components/' directory.
+ *	IMPORTANT:
+ *
+ *	 this is sample subclass **do not use from this location**, 
+ *	 copy it into your 'protected/components/' directory.
+ *
+ *	USAGE:
+ *
+ *	 1. in your protected/config/main.php
+ *		'components'=>array(
+ *			'erequest'=>array(
+ *				'class'=>'application.components.MyERequestManagerSubclass'
+ * 			),
+ *		),
+ * 
+ *   2. now you can call: 
+ *
+ *		Yii::app()->erequest->createRequest("website","jdoe@gmail.com");
+ *
+ *		$erequest = Yii::app()->erequest->getRequest("website","jdoe@gmail.com");
+ *
+ *		list($key, $cust_email, $att_email,$request_type, $status, 
+ *			$dtc, $dtp, $dtf) = $erequest;
+ *
+ *
+ *	3. in any action:
+ *
+ *		$erequest = Yii::app()->erequest->findRequestByKey($key);
+ *		
+ *		Yii::app()->erequest->moveMachineStatus($erequest, "accept");
+ *		// ERequestEnum: accept, ready, cancel. see also ERequestManagerBase.php
  * 
  * @author Cristian Salazar H. <christiansalazarh@gmail.com> @salazarchris74 
  * @license FreeBSD {@link http://www.freebsd.org/copyright/freebsd-license.html}
  */
 public class MyERequestManagerSubclass extends ERequestManagerBase
 	implements IApplicationComponent {
+	private $_initcalled;
 
 	// IApplicationComponent
 	public function init(){
+		if(!$this->_initcalled){
+			$this->_initcalled = true;
+			$this->setPersistenceModel(
+				new ERequestManagerOmfPersistence(new OmfDb(),'ERequest'));
+		}
 	}
 	// IApplicationComponent
 	public function getIsInitialized(){
-		return true;
+		return $this->_initcalled==true;
 	}
 	/**
 	 * onStatusChange 
@@ -28,7 +62,7 @@ public class MyERequestManagerSubclass extends ERequestManagerBase
 	 * @return void
 	 */
 	protected function onStatusChange($request, $oldstatus, $newstatus){
-	
+		// TODO: send emails
 	}
 	/**
 	 * findAttendanceEmail 
@@ -38,47 +72,6 @@ public class MyERequestManagerSubclass extends ERequestManagerBase
 	 * @return string
 	 */
 	protected function findAttendanceEmail($request_type){
-		
-	}
-// low level protected api
-	/**
-	 * newRequest 
-	 * 
-	 * @param string $request_type 
-	 * @param string $customer_email 
-	 * @abstract
-	 * @access protected
-	 * @return array ERequest
-	 */
-	protected function newRequest($request_type, $customer_email){
-	
-	}
-	/**
-	 * loadRequest 
-	 * 
-	 *	when modality is: 'id'
-	 *		args: $request_id
-	 *	when modality is: 'complex'
-	 *		args: array($request_type, $customer_email)
-	 *
-	 * @param mixed $args 
-	 * @param string $modality see note
-	 * @abstract
-	 * @access protected
-	 * @return array ERequest
-	 */
-	protected function loadRequest($args, $modality='id'){
-		
-	}
-	/**
-	 * saveRequest 
-	 * 
-	 * @param array $request an ERequest formatted array to be saved.
-	 * @abstract
-	 * @access protected
-	 * @return void
-	 */
-	protected function saveRequest($request){
-	
+		// TODO: find a tech guy to give attendance to this request type
 	}
 }
