@@ -2,8 +2,19 @@
 /**
  * ERequestManagerTester
  *
- *	sample subclass, do not use from this location, copy it into 
- *	your 'protected/components/' directory.
+ * You must run it from your CApplicationConsole:
+ * 
+ *   public function actionTestme(){
+ *      $test = new ERequestManagerTester();
+ *      $test->run();
+ *   }
+ * 
+ * Now run test by running this command in your shell:
+ * 
+ *   $>  ./yiic yourapp testme
+ * 
+ * It will perform core testings.
+ *    
  * 
  * @author Cristian Salazar H. <christiansalazarh@gmail.com> @salazarchris74 
  * @license FreeBSD {@link http://www.freebsd.org/copyright/freebsd-license.html}
