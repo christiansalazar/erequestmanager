@@ -105,7 +105,7 @@ abstract class ERequestManagerBase {
 		if(!in_array($option,$this->getEOptionEnum()))
 			return null;
 		$oldstatus = $this->getStatus($erequest);
-		printf("[%s-->%s]",$oldstatus,$option);
+		//printf("[%s-->%s]",$oldstatus,$option);
 		$newstatus = null;
 		$case="";
 		if($oldstatus == self::SETUP_REQUIRED){
@@ -140,12 +140,12 @@ abstract class ERequestManagerBase {
 			return null;
 		}	
 		if($oldstatus != $newstatus){
-			printf("[A, CASE:%s,op:%s,nst:%s]",$case,$option,$newstatus);
+			//printf("[A, CASE:%s,op:%s,nst:%s]",$case,$option,$newstatus);
 			$this->setStatus($erequest, $newstatus,true);
 			$this->onStatusChange($erequest, $oldstatus,$newstatus);
 			return $newstatus;
 		}else{
-			printf("[B, CASE:%s,op:%s,nst:%s]",$case,$option,$newstatus);
+			//printf("[B, CASE:%s,op:%s,nst:%s]",$case,$option,$newstatus);
 			return null;
 		}
 	}
