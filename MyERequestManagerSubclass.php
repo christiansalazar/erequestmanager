@@ -36,7 +36,7 @@
  * @author Cristian Salazar H. <christiansalazarh@gmail.com> @salazarchris74 
  * @license FreeBSD {@link http://www.freebsd.org/copyright/freebsd-license.html}
  */
-public class MyERequestManagerSubclass extends ERequestManagerBase
+class MyERequestManagerSubclass extends ERequestManagerBase
 	implements IApplicationComponent {
 	private $_initcalled;
 
