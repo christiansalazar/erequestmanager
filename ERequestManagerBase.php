@@ -58,8 +58,11 @@ abstract class ERequestManagerBase {
 	 */
 	public function createRequest($request_type, $customer_email){
 		$attendance_email = $this->findAttendanceEmail($request_type);
-		if(null == $attendance_email) 
+		if(null == $attendance_email){ 
+			Yii::log(__METHOD__." findAttendanceEmail returns no email","error");
+			throw new Exception("findAttendanceEmail must return an email when request is: ".$request_type);
 			return null;
+		}
 		$erequest = $this->getPersistenceModel()->newRequest($request_type,
 			$customer_email, $attendance_email);
 		$this->setStatus($erequest, self::SETUP_REQUIRED);
