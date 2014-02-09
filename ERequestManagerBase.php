@@ -70,6 +70,19 @@ abstract class ERequestManagerBase {
 		return $erequest;
 	}
 	/**
+	 * deleteRequest
+	 *	remove the existing request.
+	 * 
+	 * @param mixed $request_type 
+	 * @param mixed $customer_email 
+	 * @access public
+	 * @return void
+	 */
+	public function deleteRequest($request_type, $customer_email){
+		return $this->getPersistenceModel()
+			->deleteRequest($request_type, $customer_email);
+	}
+	/**
 	 * getRequest 
 	 * 
 	 * @param string $request_type 

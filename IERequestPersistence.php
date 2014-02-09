@@ -35,4 +35,28 @@ interface IERequestPersistence {
 	 * @return void
 	 */
 	function saveRequest($request);
+	/**
+	 * deleteRequest
+	 *	delete all request having request_type for a given customer_email
+	 * 
+	 * @param mixed $request_type 
+	 * @param mixed $customer_email 
+	 * @access public
+	 * @return integer
+	 */
+	function deleteRequest($request_type, $customer_email);
+	function deleteAllRequests();
+
+
+	/**
+	 * countRequest 
+	 * 	count how many request has been made for a given customer and request type.
+	 *	used primary in testings.
+	 *
+	 * @param mixed $request_type 
+	 * @param mixed $customer_email 
+	 * @access public
+	 * @return integer
+	 */
+	function countRequests($request_type, $customer_email);
 }

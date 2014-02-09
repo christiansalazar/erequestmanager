@@ -114,4 +114,53 @@ class ERequestManagerOmfPersistence implements IERequestPersistence {
 				$this->sto()->set($id, $attributes);
 		}
 	}
+	/**
+	 * deleteRequest
+	 *	delete all request having request_type for a given customer_email
+	 * 
+	 * @param mixed $request_type 
+	 * @param mixed $customer_email 
+	 * @access public
+	 * @return integer
+	 */
+	public function deleteRequest($request_type, $customer_email){
+		$objects = $this->sto()->fetch($this->_classname,
+			array('customer_email'=>$customer_email),
+			array('request_type'),
+			-1,0,false
+		);
+		$n=0;
+		foreach($objects as $obj_id=>$attributes)
+			if($attributes['request_type'] == $request_type){
+				$this->sto()->deleteObject($obj_id);
+				$n++;
+			}
+		return $n;
+	}
+	public function deleteAllRequests(){
+		$this->sto()->deleteObjects($this->_classname);	
+	}
+	/**
+	 * countRequest 
+	 * 	count how many request has been made for a given customer and request type.
+	 *	used primary in testings.
+	 *
+	 * @param mixed $request_type 
+	 * @param mixed $customer_email 
+	 * @access public
+	 * @return integer
+	 */
+	public function countRequests($request_type, $customer_email){
+		$objects = $this->sto()->fetch($this->_classname,
+			array('customer_email'=>$customer_email),
+			array('request_type'),
+			-1,0,false
+		);
+		$n=0;
+		foreach($objects as $obj_id=>$attributes)
+			if($attributes['request_type'] == $request_type){
+				$n++;
+			}
+		return $n;
+	}
 }

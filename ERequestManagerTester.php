@@ -77,6 +77,17 @@ class ERequestManagerTester extends ERequestManagerBase {
 		if($loaded2[2] != $loaded[2])
 			throw new Exception('error');
 		printf("OK\n");
+
+		printf("deleteRequest...");
+		$api->deleteAllRequests();
+		$n=$api->countRequests("test","123@mail.com");
+		assert('$n == 0');
+		$api->newRequest("test","123@mail.com","456@mail.com");
+		$api->newRequest("test","123@mail.com","456@mail.com");
+		$api->newRequest("test","123@mail.com","456@mail.com");
+		$n=$api->countRequests("test","123@mail.com");
+		assert('$n == 3');
+		printf("OK\n");
 	}
 	private function testHighLevelApiCreateAndGet(){
 		printf("%s...\n",__METHOD__);	
