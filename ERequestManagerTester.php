@@ -90,7 +90,18 @@ class ERequestManagerTester extends ERequestManagerBase {
 		$n1=$api->deleteRequest("test","123@mail.com");
 		$n2=$api->countRequests("test","123@mail.com");
 		assert('($n1 == 3) && ($n2 == 0)');
-
+		list($key1) = $api->newRequest("test","123@mail.com","456@mail.com");
+		list($key2) = $api->newRequest("test","123@mail.com","456@mail.com");
+		$n=$api->countRequests("test","123@mail.com");
+		assert('$n == 2');
+		$api->deleteRequestByKey($key1);
+		$n=$api->countRequests("test","123@mail.com");
+		assert('$n == 1');
+		list($key_x) = $api->loadRequest(array("test","123@mail.com"),"complex");
+		assert('$key_x == $key2');
+		$api->deleteRequestByKey($key2);
+		$n=$api->countRequests("test","123@mail.com");
+		assert('$n == 0');
 		printf("OK\n");
 	}
 	private function testHighLevelApiCreateAndGet(){

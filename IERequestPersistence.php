@@ -46,7 +46,7 @@ interface IERequestPersistence {
 	 */
 	function deleteRequest($request_type, $customer_email);
 	function deleteAllRequests();
-
+	function deleteRequestByKey($key);
 
 	/**
 	 * countRequest 

@@ -137,9 +137,18 @@ class ERequestManagerOmfPersistence implements IERequestPersistence {
 			}
 		return $n;
 	}
+	
 	public function deleteAllRequests(){
 		$this->sto()->deleteObjects($this->_classname);	
 	}
+
+	public function deleteRequestByKey($key){
+		$obj = $this->sto()->getObject($this->_classname,
+			array('key'=>$key));
+		$id = $obj['id'];
+		$this->sto()->deleteObject($id);
+	}
+
 	/**
 	 * countRequest 
 	 * 	count how many request has been made for a given customer and request type.
