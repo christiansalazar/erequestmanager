@@ -82,6 +82,9 @@ abstract class ERequestManagerBase {
 		return $this->getPersistenceModel()
 			->deleteRequest($request_type, $customer_email);
 	}
+	public function deleteRequestByKey($key){
+		$this->getPersistenceModel()->deleteRequestByKey($key);
+	}
 	/**
 	 * getRequest 
 	 * 
